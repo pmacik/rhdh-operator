@@ -5,6 +5,8 @@ data:
     kind: ConfigMap
     metadata:
       name: my-backstage-config-cm1 # placeholder for <bs>-default-appconfig
+      labels:
+        rhdh.redhat.com/ext-config-sync: "true"
     data:
       default.app-config.yaml: |
         backend:
@@ -23,6 +25,8 @@ data:
     kind: Secret
     metadata:
       name: postgres-secrets # will be replaced
+      labels:
+        rhdh.redhat.com/ext-config-sync: "true"
     type: Opaque
     #stringData:
     #  POSTGRES_PASSWORD:
@@ -295,6 +299,8 @@ data:
     kind: ConfigMap
     metadata:
       name: default-dynamic-plugins #  must be the same as (deployment.yaml).spec.template.spec.volumes.name.dynamic-plugins-conf.configMap.name
+      labels:
+        rhdh.redhat.com/ext-config-sync: "true"
     data:
       "dynamic-plugins.yaml": |
         includes:
@@ -347,6 +353,8 @@ data:
     kind: Secret
     metadata:
       name: backend-auth-secret
+      labels:
+        rhdh.redhat.com/ext-config-sync: "true"
     stringData:
       # generated with the command below (from https://janus-idp.io/docs/auth/service-to-service-auth/#setup):
       # node -p 'require("crypto").randomBytes(24).toString("base64")'
@@ -367,3 +375,5 @@ data:
 kind: ConfigMap
 metadata:
   name: rhdh-default-config
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"

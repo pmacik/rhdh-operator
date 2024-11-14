@@ -8,8 +8,12 @@ import (
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
+	"k8s.io/client-go/rest"
+	"sigs.k8s.io/controller-runtime/pkg/cache"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/metrics/filters"
 
+	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/client-go/discovery"
@@ -22,6 +26,9 @@ import (
 
 	bsv1 "github.com/redhat-developer/rhdh-operator/api/v1alpha3"
 	"github.com/redhat-developer/rhdh-operator/internal/controller"
+	"github.com/redhat-developer/rhdh-operator/pkg/model"
+
+	corev1 "k8s.io/api/core/v1"
 
 	openshift "github.com/openshift/api/route/v1"
 	//+kubebuilder:scaffold:imports
@@ -99,6 +106,8 @@ func main() {
 		TLSOpts: tlsOpts,
 	})
 
+	labelSelector := labels.SelectorFromSet(map[string]string{model.ExtConfigSyncLabel: "true"})
+
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		Scheme:                 scheme,
 		Metrics:                metricsServerOpts,
@@ -117,6 +126,18 @@ func main() {
 		// if you are doing or is intended to do any operation such as perform cleanups
 		// after the manager stops then its usage might be unsafe.
 		// LeaderElectionReleaseOnCancel: true,
+		NewCache: func(conf *rest.Config, opts cache.Options) (cache.Cache, error) {
+			opts.ByObject = map[client.Object]cache.ByObject{
+				&corev1.Secret{}: {
+					Label: labelSelector,
+				},
+				&corev1.ConfigMap{}: {
+					Label: labelSelector,
+				},
+				&bsv1.Backstage{}: {},
+			}
+			return cache.New(conf, opts)
+		},
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")

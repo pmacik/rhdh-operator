@@ -30,6 +30,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cm1
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   file11.txt: |
     My file11 content
@@ -40,6 +42,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cm2
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   file21.txt: |
     My file21 content
@@ -50,6 +54,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cm3
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   file31.txt: |
     My file31 content
@@ -60,6 +66,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cm4
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   file41.txt: |
     My file41 content
@@ -70,6 +78,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: secret1
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 stringData:
   secret11.txt: |
     content
@@ -78,6 +88,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: secret2
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 stringData:
   secret21.txt: |
     base64-encoded-content
@@ -88,6 +100,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: secret3
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 stringData:
   secret31.txt: |
     base64-encoded-content

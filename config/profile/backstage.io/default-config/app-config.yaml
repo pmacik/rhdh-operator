@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-backstage-config-cm1 # placeholder for <bs>-default-appconfig
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   default.app-config.yaml: |
     backend:

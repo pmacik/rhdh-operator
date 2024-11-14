@@ -5,6 +5,8 @@ data:
     kind: ConfigMap
     metadata:
       name: my-backstage-config-cm1 # placeholder for <bs>-default-appconfig
+      labels:
+        rhdh.redhat.com/ext-config-sync: "true"
     data:
       default.app-config.yaml: |
         backend:
@@ -20,6 +22,8 @@ data:
     kind: Secret
     metadata:
       name: postgres-secrets # will be replaced
+      labels:
+        rhdh.redhat.com/ext-config-sync: "true"
     type: Opaque
     #stringData:
     #  POSTGRES_PASSWORD:
@@ -202,3 +206,5 @@ data:
 kind: ConfigMap
 metadata:
   name: backstage-default-config
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"

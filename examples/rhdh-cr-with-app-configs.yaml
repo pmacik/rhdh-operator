@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-backstage-config-backend-auth
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   "app-config.backend-auth.yaml": |
     backend:
@@ -22,6 +24,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: my-backstage-backend-auth-secret
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 stringData:
   # generated with the command below (from https://backstage.io/docs/auth/service-to-service-auth/#setup):
   # node -p 'require("crypto").randomBytes(24).toString("base64")'
@@ -32,6 +36,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-backstage-config-cm1
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   app-config1-cm1.db.yaml: |
     backend:
@@ -55,6 +61,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-backstage-config-cm2
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   app-config1-cm2.gh.yaml: |
     auth:
@@ -73,6 +81,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-dynamic-plugins-config-cm
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   dynamic-plugins.yaml: |
     includes:
@@ -119,6 +129,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-env-cm-1
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   CM_ENV1: "cm env 1"
   CM_ENV2: "cm env 2"
@@ -128,6 +140,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-env-cm-11
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   CM_ENV11: "cm env 11"
   CM_ENV12: "cm env 12"
@@ -137,6 +151,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: my-gh-auth-secret
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 stringData:
   GH_CLIENT_ID: "my GH client ID"
   GH_CLIENT_SECRET: "my GH client secret"
@@ -146,6 +162,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: my-backstage-extra-files-cm1
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 data:
   cm_file1.txt: |
     # From ConfigMap
@@ -160,6 +178,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: my-backstage-extra-files-secret1
+  labels:
+    rhdh.redhat.com/ext-config-sync: "true"
 stringData:
   secret_file1.txt: |
     # From Secret
